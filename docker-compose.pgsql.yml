@@ -8,27 +8,22 @@ services:
     volumes:
       # Hint: This is just an example, change /tmp to something persistent
       - /tmp/upload/surveys:/var/www/html/upload/surveys
-    links:
-      - lime-db
-    depends_on:
-      - lime-db
     ports:
       # Hint: Change it to 80:8080 if you are using LimeSurvey 3.*
-      - "8080:8080"
+      - "8082:8080"
     environment:
-      - "DB_TYPE=pgsql"
-      - "DB_PORT=5432"
-      - "DB_HOST=lime-db"
-      # - "DB_PASSWORD="
-      # - "ADMIN_PASSWORD="
-  lime-db:
-    image: docker.io/postgres:10
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    environment:
-      - "POSTGRES_USER=limesurvey"
-      - "POSTGRES_DB=limesurvey"
-      # - "POSTGRES_PASSWORD="
+      - DB_TYPE=pgsql
+      - DB_PORT=${DB_PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    networks:
+      - app_network
+    restart: unless-stopped
 
-volumes:
-  db-data:
+networks:
+  app_network:
+    external: true
+    name: app_network
