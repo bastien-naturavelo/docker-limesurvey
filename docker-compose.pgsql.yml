@@ -1,4 +1,4 @@
-service:
+services:
   limesurvey:
     build:
       # Hint: Change it to 3.0/apache/ if you want to use LimeSurvey 3.*
