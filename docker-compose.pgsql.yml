@@ -1,6 +1,4 @@
-version: "3.0"
-services:
-  limesurvey:
+limesurvey:
     build:
       # Hint: Change it to 3.0/apache/ if you want to use LimeSurvey 3.*
       context: 6.0/apache/
